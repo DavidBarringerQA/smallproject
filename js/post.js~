@@ -1,0 +1,57 @@
+(() =>{
+		let button = document.querySelector('#submit');
+
+		function makeUser(name, username, email) {
+				return {
+						name: `${name}`
+						username: `${username}`
+						email: `${email`
+						address:{
+								street: "test",
+								suite: "test",
+								city: "test",
+								zipcode: "test",
+								geo:{
+										lat: "-1";
+										lng: "1";
+								}
+						}
+						phone: "test",
+						website: "test"
+						company{
+								name: "test",
+								catchPhrase: "test",
+								bs: "test"
+						};
+		}
+
+		function clearTable(){
+				let table = document.querySelector('#resultTable');
+				let children = table.childNodes;
+				for(const child of children){
+						table.removeChild(child);
+				}
+		}
+
+		function getReq(id){
+				let url = "https://jsonplaceholder.typicode.com/users";
+				if(id){
+						url = `${url}/${id}`;
+				}
+				fetch(url)
+						.then(response => response.json())
+						.then(data => {
+								document.querySelector('#resultTable').appendChild(makeTable(data));
+						})
+						.catch(err => console.error(err));
+		}
+
+		button.addEventListener("click", (event) => {
+				event.preventDefault();
+				let name = document.querySelector('#name').value;
+				let username = document.querySelector('#username').value;
+				let email = document.querySelector('#email').value;
+				clearTable();
+				getReq(id);
+		});
+})();

@@ -1,0 +1,31 @@
+function makeTable(fields){
+		let table = document.createElement("table");
+		table.style.border = "1px solid black";
+		table.style.borderCollapse = "collapse";
+		table.appendChild(tableRow(fields[0], "th"));
+		for(const item of fields){
+				table.appendChild(tableRow(item, "td"));
+		}
+		return table;
+
+		function tableRow(item, colType){
+				let row = document.createElement("tr");
+				for(const property in item){
+						let col = document.createElement(colType);
+						col.style.border = "1px solid black";
+						if(colType === "th"){
+								col.textContent = `${property}`;
+						} else if (Array.isArray(item[property])) {
+								console.log(item[property]);
+								col.appendChild(makeTable(item[property]));
+						} else if (typeof item[property] === 'object'){
+								col.appendChild(tableRow(item[property], "td"));
+						}
+						else {
+								col.textContent = `${item[property]}`;
+						}
+						row.appendChild(col);
+				}
+				return row;
+		}
+}
